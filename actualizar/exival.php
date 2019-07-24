@@ -31,7 +31,7 @@ for ($i=0; $i < count($empresadini) ; $i++) {
                 $Porc++; 
                 $txt = "Exival $Porc \n";
 fwrite($myfile, $txt);
-$QuerySelect = "select * from EXIVAL_ART($RowQCliente->ARTICULO_ID,0 ,$FechaFin,'S') ;";
+$QuerySelect = "select * from EXIVAL_ART($RowQCliente->ARTICULO_ID,0 ,'$FechaFin','S') ;";
 $Query=ibase_query($conn,$QuerySelect);
    
     if (!$Query)
