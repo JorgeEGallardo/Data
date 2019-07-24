@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST["bases"])) {
+if (!isset($_POST["bases"])) {
     echo "Error1";
     exit;
 } else {
@@ -7,12 +7,17 @@ if (isset($_POST["bases"])) {
     $empresas = array();
     $total = array();
     include('../config/servicio.php');
-    $bases = array(0);
+    $bases = $_POST["bases"];
     for ($i = 0; $i < count($bases); $i++) {
+        
+        $temp = $bases[$i];
+        $limp = str_replace(".FDB", "", $empresadini[$temp]);
         header('Content-Type:text/csv; charset=latin1');
         header('Content-Disposition: attachment; filename="Reporte ' . $limp . ' ' . date("Y-m-d") . '.csv"');
         $salida = fopen('php://output', 'w');
+        
         fputcsv($salida, array("Reporte: " . $limp));
+        fputcsv($salida, array("ID", "Nombre", "Existencia", "Valor", "Valor total"));
       
         $QueryCliente = "SELECT ARTICULO_ID, NOMBRE FROM ARTICULOS;";
         $tot2 = 0;
