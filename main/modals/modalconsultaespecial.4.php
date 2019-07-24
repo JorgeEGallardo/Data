@@ -1,4 +1,4 @@
-<div class="modal fade" id="Consulta1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Consulta4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-      <form action="POST" id="formbase">
+      <form action="get/cartera.php" method="POST" id="formbase4">
       <div class="form-row">
       <div class="form-group col-md-4">
       <label for="inputState">Estatus</label>
@@ -34,7 +34,7 @@
       <select id="inputState" name="zona" class="form-control">
         <option selected value="">Todas</option>
     <?php include('config/servicio2.php');
-    $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[0]."",$usuariodini, $basedecode);
+    $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[3]."",$usuariodini, $basedecode);
     $OptionQuery = "SELECT DISTINCT ZONA_CLIENTE_ID, NOMBRE FROM ZONAS_CLIENTES;";
     $Zonas =ibase_query($conn, $OptionQuery);
     while ($RowZonas = ibase_fetch_object($Zonas)) {
@@ -76,12 +76,14 @@
     ?>
       </select>
     </div>
-    <input type="hidden" name="bases[]" value="1">
-      </form>
+    
+    <input type="hidden" name="bases[]" value="3">
+    
     </div>
       <div class="modal-footer">
-      <button type="button" onClick="consulta('cartera2');" class="btn btn-success" data-dismiss="modal">Correr</button><br>
-     
+      <button type="button" onClick="consulta('cartera2', 'formbase4');" class="btn btn-success" data-dismiss="modal">Vista previa</button><br>
+      <button class="btn btn-success" >Descargar</button><br>
+      </form>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
       </div>
       

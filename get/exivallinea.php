@@ -58,10 +58,8 @@ exit;
 $TOT = 0; 
 while ($RowQ = ibase_fetch_object ($QueryC)) 
 {
-    $QuerySelect= "EXECUTE procedure CALC_EXIS_ARTALM($RowQ->ARTICULO_ID,372846 ,'".date("Y-m-d")."') ;";
-    $QueryUltimaCompra ="SELECT COSTO_ULTIMA_COMPRA FROM GET_ULTCOM_ART($RowQ->ARTICULO_ID);";
+    $QuerySelect= "select * from EXIVAL_ART($RowQ->ARTICULO_ID,0 ,'".date("Y-m-d")."','S');";
     $Query=ibase_query($conn,$QuerySelect);
-    $Query2=ibase_query($conn,$QueryUltimaCompra);
     if (!$Query)
     {
     echo "no se puede mostrar datos desde la consulta2: $Query!";
@@ -71,18 +69,7 @@ while ($RowQ = ibase_fetch_object ($QueryC))
     
 while ($RowQ = ibase_fetch_object ($Query)) 
 {
-    while ($RowQ2 = ibase_fetch_object ($Query2)) 
-    {
-        $vt = $RowQ2 ->COSTO_ULTIMA_COMPRA;
-    }	
-$ex = $RowQ -> EXIS_UNID; 
-if ( $vt < 0) {
-       $vt=0; 
-}
-if ( $ex < 0) {
-    $ex=0; 
-}
-$TOT +=  $vt *$ex; 
+$TOT +=  $RowQ->VALOR_TOTAL; 
 }
 }
 $count++;

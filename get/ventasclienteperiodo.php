@@ -6,13 +6,16 @@ header('Content-Disposition: attachment; filename="ReporteDeVentas.csv"');
 
 class ventaMes { 
         
-    var $nombre, $email, $precios, $total, $destacado;
-    public function ventaMes($nombrep, $emailp, $preciosp, $totalp, $destacadop) { 
+    var $nombre, $email, $clave, $precios, $total, $destacado, $vendedor, $zona;
+    public function ventaMes( $clavep, $nombrep, $emailp, $preciosp, $totalp, $destacadop, $vendedorp,$zonap) { 
         $this->nombre = $nombrep; 
         $this->email = $emailp; 
         $this->precios = $preciosp; 
         $this->total = $totalp;
         $this->destacado = $destacadop;
+        $this->vendedor = $vendedorp;
+        $this->zona = $zonap;
+        $this->clave = $clavep;
     } 
     
 } 
@@ -47,7 +50,7 @@ $salida=fopen('php://output', 'w');
         $temp=$bases[$i];
         $limp=str_replace(".FDB", "", $empresadini[$temp]);
         fputcsv($salida, array("Reporte: ".$limp));
-        $encabezados = array("Cliente", "Email");
+        $encabezados = array("Clave","Cliente", "Email", "Zona", "Vendedor");
     while ($RowQVentasH = ibase_fetch_object($QueryVentasH)) {
     $Mes = $RowQVentasH->FECHA_FIN_MES;
     $Mes = date("M", strtotime($Mes));
@@ -84,7 +87,7 @@ $salida=fopen('php://output', 'w');
     array_push($encabezados, "Destacado");
     fputcsv($salida, $encabezados);
     $arrayVxC=array();
-    $QuerySelectClientes= "SELECT A.NOMBRE_CLIENTE,A.CLIENTE_ID FROM ORSP_LISTA_CLIENTES('N') A 
+    $QuerySelectClientes= "SELECT A.NOMBRE_CLIENTE,A.CLIENTE_ID, A.NOMBRE_ZONA, A.NOMBRE_VENDEDOR, A.CLAVE_CLIENTE FROM ORSP_LISTA_CLIENTES('S') A 
     WHERE A.ESTATUS <> 'B';";
     $QueryClientes=ibase_query($conn,$QuerySelectClientes);
     while ($RowQClientes = ibase_fetch_object($QueryClientes)) {
@@ -110,7 +113,7 @@ $salida=fopen('php://output', 'w');
         //echo "<td>$venta</td>";
         $cont+=$venta;
     }
-    $cliente = new ventaMes($RowQClientes->NOMBRE_CLIENTE, $EMAIL, $ventas, $cont, $ClienteDestacado);
+    $cliente = new ventaMes($RowQClientes->CLAVE_CLIENTE, $RowQClientes->NOMBRE_CLIENTE, $EMAIL, $ventas, $cont, $ClienteDestacado, $RowQClientes->NOMBRE_VENDEDOR, $RowQClientes->NOMBRE_ZONA);
     array_push($arrayVxC, $cliente);
        
    // echo "<td>$cont</td>";
@@ -126,8 +129,11 @@ foreach ($arrayVxC as $valor) {
 if ($valor->destacado == false and ($PorDestacado==0 or $PorDestacado==2)){
     $contNDestacado++;
     if ($contNDestacado<=$LimiteNDest){
+        array_push($arrayVenta,$valor->clave);
         array_push($arrayVenta,$valor->nombre); 
         array_push($arrayVenta,$valor->email);
+        array_push($arrayVenta,$valor->zona);
+        array_push($arrayVenta,$valor->vendedor);  
     $arrayEmails2 =$arrayEmails2.$valor->email.";";   
     foreach ($valor->precios as $valor2) {
         array_push($arrayVenta,$valor2);
@@ -141,8 +147,11 @@ fputcsv($salida, $arrayVenta);
 else {
     $contDestacado++;
     if ($contDestacado<=$LimiteDest and ($PorDestacado==0 or $PorDestacado==1)){
+        array_push($arrayVenta,$valor->clave);
         array_push($arrayVenta,$valor->nombre); 
         array_push($arrayVenta,$valor->email);
+        array_push($arrayVenta,$valor->zona);
+        array_push($arrayVenta,$valor->vendedor);
     $arrayEmails= $arrayEmails.$valor->email.";"; 
     foreach ($valor->precios as $valor2) {
         array_push($arrayVenta,$valor2);

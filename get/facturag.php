@@ -5,9 +5,9 @@
     $bases = $_POST["bases"];
     $in=false;
     $fecha = $_POST["ini"];
-    $fechaini="'".$fecha."-01'";
+    $fechaini="'2019-03-01'";
     $fecha = date('Y-m-d', strtotime("+1 months", strtotime($fecha)));
-    $fechafin="'".$fecha."'";
+    $fechafin="'2019-03-31'";
     for ($i=0; $i<count($bases);$i++) {
 		$conn=ibase_connect($servicedini.":".$rutadini.$empresadini[$bases[$i]]."",$usuariodini, $basedecode);
 		if (!$conn) 
@@ -20,37 +20,23 @@
         $limp=str_replace(".FDB", "", $empresadini[$temp]);
 
 
-        $QueryClienteInfo = "SELECT DOCTOS_CC_1.DOCTO_CC_ID, 
-        DOCTOS_CC_1.FECHA, DOCTOS_CC_1.FOLIO, 
-        CONCEPTOS_CC_1.NOMBRE, 
-        DOCTOS_CC_1.CLAVE_CLIENTE, 
-        CLIENTES_1.NOMBRE NOMBRE_2, 
-        IMPORTES_DOCTOS_CC_1.IMPORTE, 
-        IMPORTES_DOCTOS_CC_1.IMPUESTO, 
-        (IMPORTES_DOCTOS_CC_1.IMPORTE + IMPORTES_DOCTOS_CC_1.IMPUESTO) IMPORTES_DOCTOS_CC_1_IMP
-        FROM DOCTOS_CC DOCTOS_CC_1
-       INNER JOIN CONCEPTOS_CC CONCEPTOS_CC_1 ON 
-        (CONCEPTOS_CC_1.CONCEPTO_CC_ID = DOCTOS_CC_1.CONCEPTO_CC_ID)
-       INNER JOIN CLIENTES CLIENTES_1 ON 
-      (CLIENTES_1.CLIENTE_ID = DOCTOS_CC_1.CLIENTE_ID)
-       INNER JOIN IMPORTES_DOCTOS_CC IMPORTES_DOCTOS_CC_1 ON 
-      (IMPORTES_DOCTOS_CC_1.DOCTO_CC_ID = DOCTOS_CC_1.DOCTO_CC_ID)
- WHERE 
-       ( CONCEPTOS_CC_1.NOMBRE IN ('Venta','Venta en mostrador') )
-       AND ( DOCTOS_CC_1.CANCELADO = 'N' ) 
-       AND (DOCTOS_CC_1.FECHA < $fechafin)
-       AND (DOCTOS_CC_1.FECHA >= $fechaini)
-ORDER BY DOCTOS_CC_1.FECHA, DOCTOS_CC_1.FOLIO;";
+   $QueryClienteInfo = "SELECT FECHA, FOLIO, CLAVE_CLIENTE, VENDEDOR_ID, IMPORTE_COBRO, TIPO_DOCTO, COND_PAGO_ID 
+        FROM DOCTOS_VE WHERE FECHA < $fechafin AND FECHA > $fechaini ;";
+    $QueryClienteInfo = "SELECT FECHA, FOLIO, CLAVE_CLIENTE, VENDEDOR_ID, IMPORTE_NETO, TIPO_DOCTO
+   FROM DOCTOS_PV WHERE FECHA < $fechafin AND FECHA > $fechaini;";
+         
         $Vencidos = ibase_query($conn, $QueryClienteInfo);
         
         if (!$Vencidos){
                 echo "No se puede mostrar la consulta vencimientos: ".$QueryCredito."<br/>";
             }
-
+$cont=0;
         while ($RowVencimiento = ibase_fetch_object($Vencidos)){
-            
-      print_r($RowVencimiento);
+            print_r($RowVencimiento);
+   
+  
     }
+    print($cont);
 }
 
 
@@ -60,3 +46,4 @@ ORDER BY DOCTOS_CC_1.FECHA, DOCTOS_CC_1.FOLIO;";
 
 
 ?>
+

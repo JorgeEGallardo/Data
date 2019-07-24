@@ -1,4 +1,5 @@
 <?php 
+date_default_timezone_set('America/Mexico_City');
  $ruta="";
   $ar=fopen("../config/Conexion.ini","r") or
     die("Copie el archivo Conexion.ini que se genera desde .. a la carpeta donde se encuentra la p&aacute;gina web.");
@@ -24,7 +25,7 @@
   array_push($empresagrupo, $grupoAguila);
 $baseencode = str_replace('igual', '=', $passwddini);
 $basedecode = base64_decode($baseencode);
-
+$almacen=array(372846,372846,19,19,19,19,19);
 
 //$cadena_user = "StrConexion := '\"".$usuariodini."\" \"".$basedecode."\" \"".$servicedini.":".$rutadini.$empresadini."\"';";
 
