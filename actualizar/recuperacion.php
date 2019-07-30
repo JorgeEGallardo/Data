@@ -1,7 +1,4 @@
 <?PHP
-$name = "Recuperacion".date("Ymd hhmmss").".txt"; 
-$myfile = fopen($name , "w");
- 
 $y = date("y");
 $Fechain = "20$y-01-01";
 $FechaFin = "20".date("y-m-d");
