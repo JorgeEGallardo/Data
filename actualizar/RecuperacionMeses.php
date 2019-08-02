@@ -9,43 +9,50 @@ $FechaFin= date("Y-m-t", strtotime($Fechain));
 
 
 for ($i=0; $i < count($empresadini) ; $i++) { 
-
     //--------------------------------//
 //-----------Facturas-------------//
 $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[$i],$usuariodini, $basedecode);	
-
-$QueryClienteInfo = "SELECT DOCTOS_CC_1.DOCTO_CC_ID, 
-DOCTOS_CC_1.FECHA, DOCTOS_CC_1.FOLIO, 
-CONCEPTOS_CC_1.NOMBRE, 
-DOCTOS_CC_1.CLAVE_CLIENTE, 
-CLIENTES_1.NOMBRE NOMBRE_2, 
-IMPORTES_DOCTOS_CC_1.IMPORTE, 
-IMPORTES_DOCTOS_CC_1.IMPUESTO, 
-(IMPORTES_DOCTOS_CC_1.IMPORTE + IMPORTES_DOCTOS_CC_1.IMPUESTO) IMPORTES_DOCTOS_CC_1_IMP
-FROM DOCTOS_CC DOCTOS_CC_1
-INNER JOIN CONCEPTOS_CC CONCEPTOS_CC_1 ON 
-(CONCEPTOS_CC_1.CONCEPTO_CC_ID = DOCTOS_CC_1.CONCEPTO_CC_ID)
-INNER JOIN CLIENTES CLIENTES_1 ON 
-(CLIENTES_1.CLIENTE_ID = DOCTOS_CC_1.CLIENTE_ID)
-INNER JOIN IMPORTES_DOCTOS_CC IMPORTES_DOCTOS_CC_1 ON 
-(IMPORTES_DOCTOS_CC_1.DOCTO_CC_ID = DOCTOS_CC_1.DOCTO_CC_ID)
-WHERE 
-( CONCEPTOS_CC_1.NOMBRE IN ('Venta','Venta en mostrador') )
-AND ( DOCTOS_CC_1.CANCELADO = 'N' ) 
-AND (DOCTOS_CC_1.FECHA <= '$FechaFin')
-AND (DOCTOS_CC_1.FECHA >= '$Fechain')
-ORDER BY DOCTOS_CC_1.FECHA, DOCTOS_CC_1.FOLIO;";
-$Vencidos = ibase_query($conn, $QueryClienteInfo);
-
-if (!$Vencidos){
-        echo "No se puede mostrar la consulta vencimientos: ".$QueryCredito."<br/>";
+$TotalRec=0;
+$QueryCobro = "SELECT CLAVE_CLIENTE,DOCTO_CC_ID,FOLIO FROM DOCTOS_CC WHERE FECHA>='$Fechain' AND FECHA<='$FechaFin'  AND  (CONCEPTO_CC_ID=4 OR CONCEPTO_CC_ID=5) ORDER BY FECHA, FOLIO;";
+$Cobros = ibase_query($conn, $QueryCobro);
+while ($RowCobros = ibase_fetch_object($Cobros)) {
+    $Control=TRUE;
+    $QueryImportes = "SELECT IMPORTE ,IMPUESTO,DOCTO_CC_ID, DOCTO_CC_ACR_ID, FECHA FROM IMPORTES_DOCTOS_CC WHERE DOCTO_CC_ID= $RowCobros->DOCTO_CC_ID;";
+    $Importes = ibase_query($conn, $QueryImportes);
+    $IMPV = TRUE;
+    $ACR = $RowCobros->FOLIO;
+    while ($RowImportes = ibase_fetch_object($Importes)) {
+        $IMPORTE = $RowImportes->IMPORTE+$RowImportes->IMPUESTO;
+        $FECHA = $RowImportes->FECHA;
+        $QueryDoctosCC = "SELECT * FROM IMPORTES_DOCTOS_CC WHERE DOCTO_CC_ACR_ID= $RowImportes->DOCTO_CC_ACR_ID AND DOCTO_CC_ID <> $RowImportes->DOCTO_CC_ID;";
+        $DoctosCC = ibase_query($conn, $QueryDoctosCC);
+        $cont = 0;
+        while ($RowDoctosCC = ibase_fetch_object($DoctosCC)) {
+            $cont++;
+            $QueryDoctoCC = "SELECT * FROM DOCTOS_CC WHERE DOCTO_CC_ID= $RowDoctosCC->DOCTO_CC_ID;";
+            $DoctoCC = ibase_query($conn, $QueryDoctoCC);
+            $Total = $RowDoctosCC->IMPORTE + $RowDoctosCC->IMPUESTO;
+            while ($RowDoctoCC = ibase_fetch_object($DoctoCC)) {
+                $cur = DateTime::CreateFromFormat('Y-m-d', $FECHA);
+                $prev = DateTime::CreateFromFormat('Y-m-d', $RowDoctoCC->FECHA);
+                $days = $cur->diff($prev)->format('%a');
+                if($Control){
+                    $Control=FALSE;
+                }else{
+                    $IMPORTE =0;
+                }
+                if ($RowDoctoCC->CONCEPTO_CC_ID == 14){
+                   $TotalRec+=$Total;
+                }
+                    else {
+                        $TotalRec+=$Total;
+                  }
+            }
+        }
+    
     }
-$cont=0;
-while ($RowVencimiento = ibase_fetch_object($Vencidos)){
-    $cont += $RowVencimiento->IMPORTE + $RowVencimiento->IMPUESTO;
 }
 $conn2=ibase_connect($servicedini.":".$rutadini."DASHBOARD.FDB",$usuariodini, $basedecode);	
-$Query = "INSERT INTO MESES (VALOR, BD, FECHA) VALUES ($cont,'$empresadini[$i]', '$FechaFin');";  
+$Query = "INSERT INTO MESES (VALOR, BD, FECHA) VALUES ($TotalRec,'$empresadini[$i]', '$FechaFin');";  
 $CXC= ibase_query($conn2, $Query);
 }
-
