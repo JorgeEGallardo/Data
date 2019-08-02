@@ -53,6 +53,13 @@ for ($y = 16; $y < 19; $y++) {
             $conn2 = ibase_connect($servicedini . ":" . $rutadini . "DASHBOARD.FDB", $usuariodini, $basedecode);
             $Query = "INSERT INTO MESES (VALOR, BD, FECHA) VALUES ($TotalRec,'$empresadini[$i]', '$FechaFin');";
             $CXC = ibase_query($conn2, $Query);
+            ibase_free_result($CXC);
+            ibase_free_result($DoctoCC);
+            ibase_free_result($Cobros);
+            ibase_free_result($Importes);
+            ibase_free_result($DoctosCC);
+            ibase_close($conn); 
+            ibase_close($conn2); 
         }
     }
 }
