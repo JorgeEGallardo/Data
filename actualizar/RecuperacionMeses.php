@@ -3,7 +3,7 @@ $name = "Recuperacion".date("Ymd hhmmss").".txt";
 $myfile = fopen($name , "w");
 include('../config/servicio.php');
 $month = date("m"); 
-$month -= 2; 
+$month -= 1; 
 $Fechain =date("Y")."-$month-01";
 $FechaFin= date("Y-m-t", strtotime($Fechain));  
 
