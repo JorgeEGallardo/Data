@@ -19,7 +19,9 @@ while ($RowProv = ibase_fetch_object($Proveedores)) {
 }
 
 
-echo "Res : ".$TotalRec;
+$conn2=ibase_connect($servicedini.":".$rutadini."DASHBOARD.FDB",$usuariodini, $basedecode);	
+$Query = "INSERT INTO PROVEEDORES(VALOR, BD) VALUES ($TotalRec,'$empresadini[$i]');";  
+$CXC= ibase_query($conn2, $Query);
 //-----------------------//
 
 }
