@@ -1,7 +1,7 @@
 <?PHP
 include('config/servicio2.php');
-for ($y = 16; $y < 19; $y++) {
-    for ($m = 1; $m < 13; $m++) {
+for ($y = 19; $y < 20; $y++) {
+    for ($m = 1; $m < 8; $m++) {
         if ($m < 10) {
             $Fechain = "20$y" . "-0$m-01";
         } else {
@@ -54,11 +54,6 @@ for ($y = 16; $y < 19; $y++) {
             $Query = "INSERT INTO MESES (VALOR, BD, FECHA) VALUES ($TotalRec,'$empresadini[$i]', '$FechaFin');";
             $CXC = ibase_query($conn2, $Query);
             echo $Query;
-            ibase_free_result($CXC);
-            ibase_free_result($DoctoCC);
-            ibase_free_result($Cobros);
-            ibase_free_result($Importes);
-            ibase_free_result($DoctosCC);
             ibase_close($conn); 
             ibase_close($conn2); 
         }
