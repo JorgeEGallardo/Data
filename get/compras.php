@@ -14,7 +14,7 @@ $queryS ="SELECT PROVEEDOR_ID, NOMBRE FROM PROVEEDORES";
 $Query=ibase_query($conn,$queryS);
 $cont=0;
 $i=0;
-$contDesc =0;
+$contImportes =0;
 $contImpuestos=0;
 while ($RowQ = ibase_fetch_object ($Query)) 
 {   
