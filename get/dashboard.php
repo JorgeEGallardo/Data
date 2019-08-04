@@ -37,6 +37,13 @@ while ($row = ibase_fetch_object($Exec)) {
 $Rec= $row->VALOR;
 $RecF= $row->FECHA;
 }  
+$Query = "SELECT VALOR, FECHA FROM PROVEEDORES WHERE BD = '$empresadini[$bd]';";  
+$Exec = ibase_query($conn, $Query);
+$Prov =0;
+while ($row = ibase_fetch_object($Exec)) {
+$Prov= $row->VALOR;
+$ProvF= $row->FECHA;
+}  
 $Rec2 = $Rec/2; 
 ?>
 <div class="col-md-12">
@@ -78,6 +85,11 @@ $Rec2 = $Rec/2;
                     <td>Compras</td>
                     <td id="m4"><?php echo number_format($ComprasV,2); ?></td>
                     <td><?php echo $ComprasF?></td>
+                </tr>
+                <tr>
+                    <td>Proveedores</td>
+                    <td id="m4"><?php echo number_format($Prov,2); ?></td>
+                    <td><?php echo $ProvF?></td>
                 </tr>
             </tbody>
         </table>
