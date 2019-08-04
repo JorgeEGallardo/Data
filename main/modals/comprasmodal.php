@@ -2,13 +2,14 @@
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Compras por periodo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="POST" target="_blank" action="get/m.php" id="formCompras">
+            <form method="POST" target="_blank" action="get/compras.php" id="formCompras">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Compras por periodo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
                 <div class="modal-body">
 
@@ -27,13 +28,13 @@
                         </div>
                     </div>
                 </div>
-                </form>
-      
-      <div class="modal-footer">
-      <button type="button" onClick="consulta('compras','formCompras');" class="btn btn-success" data-dismiss="modal">Exival empresa</button><br>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-      </div>
 
+
+                <div class="modal-footer">
+                    <button type="submit"class="btn btn-success">Compras</button><br>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-</div>  
