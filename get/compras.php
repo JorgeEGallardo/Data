@@ -12,13 +12,13 @@ for ($i=0; $i<count($bases);$i++) {
 $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[0]."",$usuariodini, $basedecode);
 $queryS ="SELECT PROVEEDOR_ID, NOMBRE FROM PROVEEDORES";
 $Query=ibase_query($conn,$queryS);
-$cont=0;
+
+while ($RowQ = ibase_fetch_object ($Query)) 
+{   
+        $cont=0;
 $i=0;
 $contImportes =0;
 $contImpuestos=0;
-while ($RowQ = ibase_fetch_object ($Query)) 
-{   
-        
     $queryCompras ="SELECT IMPORTE_NETO, TOTAL_IMPUESTOS, DSCTO_IMPORTE FROM DOCTOS_CM WHERE FECHA >= '$Fechain' AND FECHA <= '$FechaFin' AND PROVEEDOR_ID=$RowQ->PROVEEDOR_ID ;";
     $QueryCompra=ibase_query($conn,$queryCompras);
    
