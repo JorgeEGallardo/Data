@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" target="_blank" action="get/m.php" id="formVentas">
+            <form method="POST" target="_blank" action="get/m.php" id="formCompras">
 
                 <div class="modal-body">
 
@@ -30,7 +30,7 @@
                 </form>
       
       <div class="modal-footer">
-      <button type="button" onClick="consulta('compras','formVentas');" class="btn btn-success" data-dismiss="modal">Exival empresa</button><br>
+      <button type="button" onClick="consulta('compras','formCompras');" class="btn btn-success" data-dismiss="modal">Exival empresa</button><br>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
       </div>
 
