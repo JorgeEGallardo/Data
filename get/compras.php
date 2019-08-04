@@ -4,7 +4,9 @@ $FechaFin = $_POST['ffinal'];
 $bases = $_POST['bases'];
 include('../config/servicio.php');
 header('Content-Type:text/csv; charset=latin1');
-header('Content-Disposition: attachment; filename="Reporte ' . $limp . ' ' . date("Y-m-d") . '.csv"');
+header('Content-Disposition: attachment; filename="Reporte compras' . date("Y-m-d") . '.csv"');
+
+$salida = fopen('php://output', 'w');
 fputcsv($salida, array("Proveedor", "Importe", "Impuestos", "Total"));
 for ($i=0; $i<count($bases);$i++) {
 $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[0]."",$usuariodini, $basedecode);
@@ -13,10 +15,10 @@ $Query=ibase_query($conn,$queryS);
 $cont=0;
 $i=0;
 $contDesc =0;
+$contImpuestos=0;
 while ($RowQ = ibase_fetch_object ($Query)) 
 {   
         
-    $salida = fopen('php://output', 'w');
     $queryCompras ="SELECT IMPORTE_NETO, TOTAL_IMPUESTOS, DSCTO_IMPORTE FROM DOCTOS_CM WHERE FECHA >= '$Fechain' AND FECHA <= '$FechaFin' AND PROVEEDOR_ID=$RowQ->PROVEEDOR_ID ;";
     $QueryCompra=ibase_query($conn,$queryCompras);
    
