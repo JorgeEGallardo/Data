@@ -11,7 +11,7 @@ $cont=0;
 $i=0;
 while ($RowQ = ibase_fetch_object ($Query)) 
 {   
-    $queryCompras ="SELECT IMPORTE_NETO, TOTAL_IMPUESTOS, DSCTO_IMPORTE FROM DOCTOS_CM WHERE FECHA >= '$Fechain' AND FECHA <= 'FechaFin' AND PROVEEDOR_ID=$RowQ->PROVEEDOR_ID ;";
+    $queryCompras ="SELECT IMPORTE_NETO, TOTAL_IMPUESTOS, DSCTO_IMPORTE FROM DOCTOS_CM WHERE FECHA >= '$Fechain' AND FECHA <= '$FechaFin' AND PROVEEDOR_ID=$RowQ->PROVEEDOR_ID ;";
     $QueryCompra=ibase_query($conn,$queryCompras);
    
     while ($RowQCompra = ibase_fetch_object ($QueryCompra)){
