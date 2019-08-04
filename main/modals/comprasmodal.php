@@ -30,7 +30,7 @@
                 </form>
       
       <div class="modal-footer">
-      <button type="button" onClick="consulta('compras','formcred2');" class="btn btn-success" data-dismiss="modal">Exival empresa</button><br>
+      <button type="button" onClick="consulta('compras','formVentas');" class="btn btn-success" data-dismiss="modal">Exival empresa</button><br>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
       </div>
 
