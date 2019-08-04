@@ -2,6 +2,8 @@
 $Fechain = "2019-04-01";
 $FechaFin = "2019-04-30";
 include('../config/servicio.php');
+print_r($_POST);
+for ($i=0; $i<count($bases);$i++) {
 $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[0]."",$usuariodini, $basedecode);
 $queryS ="SELECT PROVEEDOR_ID FROM PROVEEDORES";
 $Query=ibase_query($conn,$queryS);
@@ -18,4 +20,5 @@ while ($RowQ = ibase_fetch_object ($Query))
          }
 }
 echo number_format($cont,2); 
+}
 ?>
