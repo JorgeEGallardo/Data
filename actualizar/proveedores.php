@@ -14,7 +14,7 @@ while ($RowProv = ibase_fetch_object($Proveedores)) {
     $QueryImportes = "SELECT SALDO_CXP, SALDO_VENCIDO,SALDO_ANTICIPOS,SALDO_X_VENCER FROM ORSP_CP_ANTSAL_PROV($RowProv->PROVEEDOR_ID,'$Fechain','$FechaFin',60,'N');";
     $Importes = ibase_query($conn, $QueryImportes);
     while ($RowImportes = ibase_fetch_object($Importes)) {
-     $TotalRec+=$RowImportes->SALDO_VENCIDO; 
+     $TotalRec+=$RowImportes->SALDO_CXP; 
     }
 }
 
