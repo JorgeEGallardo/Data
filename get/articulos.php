@@ -4,7 +4,8 @@ header('Content-Type:text/csv; charset=latin1');
 header('Content-Disposition: attachment; filename="Reporte' . date("Y-m-d") . '.csv"');
 $salida = fopen('php://output', 'w');
 fputcsv($salida, array("Articulo","Descripcion","Existencia","Fecha compra","Costo compra","Fecha Venta"));
- include('config/servicio.php');
+
+include('../config/servicio.php');
  $bases = $_POST["bases"];
  $in = false;
     for ($i = 0; $i < count($bases); $i++) {
