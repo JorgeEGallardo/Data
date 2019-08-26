@@ -10,7 +10,7 @@ include('../config/servicio.php');
  $in = false;
     for ($i = 0; $i < count($bases); $i++) {
  $conn = ibase_connect($servicedini . ":" . $rutadini . $empresadini[$bases[$i]] . "", $usuariodini, $basedecode);
- $QueryArticulos = "SELECT DISTINCT A.NOMBRE,B.CLAVE_ARTICULO FROM ARTICULOS A JOIN
+ $QueryArticulos = "SELECT DISTINCT A.NOMBRE,B.CLAVE_ARTICULO,A.ARTICULO_ID FROM ARTICULOS A JOIN
  CLAVES_ARTICULOS B ON(A.ARTICULO_ID=B.ARTICULO_ID)";
  $Articulo = ibase_query($conn, $QueryArticulos);
  while ($RowQArticulo = ibase_fetch_object($Articulo)) {
