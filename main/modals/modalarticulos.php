@@ -13,20 +13,7 @@
                 <div class="modal-body">
 
                     <?php include('form/databases.php');?>
-                    <div class="input-group">
-                        <input class="form-control mydatepicker" type="date" name="finicial"
-                            placeholder="Fecha inicial">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <input class="form-control mydatepicker" type="date" name="ffinal" placeholder="Fecha final">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                        </div>
-                    </div>
-                </div>
+                   
                 <div class="modal-footer">
                     <button class="btn btn-success">Correr</button>
            

@@ -5,13 +5,16 @@ header('Content-Disposition: attachment; filename="Reporte' . date("Y-m-d") . '.
 $salida = fopen('php://output', 'w');
 fputcsv($salida, array("Articulo","Descripcion","Existencia","Fecha compra","Costo compra","Fecha Venta"));
  include('config/servicio2.php');
- print_r($_POST);
- $conn = ibase_connect($servicedini . ":" . $rutadini . $empresadini[1] . "", $usuariodini, $basedecode);
+ $bases = $_POST["bases"];
+ $in = false;
+    for ($i = 0; $i < count($bases); $i++) {
+ $conn = ibase_connect($servicedini . ":" . $rutadini . $empresadini[$bases[$i]] . "", $usuariodini, $basedecode);
  $QueryArticulos = "SELECT DISTINCT ARTICULO_ID, NOMBRE FROM ARTICULOS";
  $Articulo = ibase_query($conn, $QueryArticulos);
  while ($RowQArticulo = ibase_fetch_object($Articulo)) {
     $Ex="";
-    $QueryExis ="select * from EXIVAL_ART($RowQArticulo->ARTICULO_ID,0 ,'2019-11-12','S');";
+    $date=date("Y-m-d");
+    $QueryExis ="select * from EXIVAL_ART($RowQArticulo->ARTICULO_ID,0 ,'$date','S');";
     $Exis= ibase_query($conn, $QueryExis);
     while ($RowqExis = ibase_fetch_object($Exis)) {
         $Ex = $RowqExis->EXISTENCIA;
@@ -53,4 +56,4 @@ fputcsv($salida, array("Articulo","Descripcion","Existencia","Fecha compra","Cos
     WHERE ARTICULO_ID = 12194601
     AND ROL <> 'C' ORDER BY B.FECHA;*/
    }
- 
+}
