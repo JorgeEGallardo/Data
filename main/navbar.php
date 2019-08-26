@@ -22,7 +22,7 @@
                     class="hide-menu">Recuperación</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                 href="Articulos.php" aria-expanded="false"><i class="mdi  mdi-credit-card-multiple"></i><span
-                    class="hide-menu">Árticulos</span></a></li>
+                    class="hide-menu">Rotación art</span></a></li>
         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ventas.php"
                 aria-expanded="false"><i class="mdi mdi-cash"></i><span class="hide-menu">Ventas</span></a></li>
         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="compras.php"
