@@ -10,7 +10,8 @@ include('../config/servicio.php');
  $in = false;
     for ($i = 0; $i < count($bases); $i++) {
  $conn = ibase_connect($servicedini . ":" . $rutadini . $empresadini[$bases[$i]] . "", $usuariodini, $basedecode);
- $QueryArticulos = "SELECT DISTINCT ARTICULO_ID, NOMBRE FROM ARTICULOS";
+ $QueryArticulos = "SELECT DISTINCT A.NOMBRE,B.CLAVE_ARTICULO FROM ARTICULOS A JOIN
+ CLAVES_ARTICULOS B ON(A.ARTICULO_ID=B.ARTICULO_ID)";
  $Articulo = ibase_query($conn, $QueryArticulos);
  while ($RowQArticulo = ibase_fetch_object($Articulo)) {
     $Ex="";
@@ -48,7 +49,7 @@ include('../config/servicio.php');
     $QueryULT = "SELECT * FROM GET_ULTCOM_ART($RowQArticulo->ARTICULO_ID)";
     $ULT = ibase_query($conn, $QueryULT);
     while ($RowQULT = ibase_fetch_object($ULT)) {
-        fputcsv($salida, array($RowQArticulo->ARTICULO_ID,$RowQArticulo->NOMBRE,$Ex,$RowQULT->FECHA_ULTIMA_COMPRA,$RowQULT->COSTO_ULTIMA_COMPRA,$fecha));
+        fputcsv($salida, array($RowQArticulo->CLAVE_ARTICULO,$RowQArticulo->NOMBRE,$Ex,$RowQULT->FECHA_ULTIMA_COMPRA,$RowQULT->COSTO_ULTIMA_COMPRA,$fecha));
     }
     /*
     SELECT A.DOCTO_VE_ID,A.ARTICULO_ID,B.FECHA
