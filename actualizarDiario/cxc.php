@@ -1,8 +1,9 @@
 <?PHP
 
-$y = date("y");
-$Fechain = "20$y-01-01";
-$FechaFin = "20".date("y-m-d");
+$firstday = date('Y-m-d', strtotime("this week")); 
+$lastDay  = date('Y-m-d', strtotime($Date. ' + 6 days'));
+$Fechain = $firstday;
+$FechaFin = $lastDay;
 include('../config/servicio.php');
 for ($i=0; $i < count($empresadini) ; $i++) { 
 
@@ -25,7 +26,7 @@ while ($RowQClienteInfo = ibase_fetch_object($ClienteInfo)) {
 }
 }
 }
-$conn2=ibase_connect($servicedini.":".$rutadini."DASHBOARD.FDB",$usuariodini, $basedecode);	
+$conn2=ibase_connect($servicedini.":".$rutadini."DIARIO.FDB",$usuariodini, $basedecode);	
 $Query = "INSERT INTO CXC (VALOR, BD) VALUES ($cont,'$empresadini[$i]');";  
 $CXC= ibase_query($conn2, $Query);
 print("CXC : ".$cont);
