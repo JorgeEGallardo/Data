@@ -7,11 +7,14 @@
                             class="mdi mdi-note-outline"></i><span class="hide-menu"> Año en curso </span></a></li>
                 <li class="sidebar-item"><a href="historico.php" class="sidebar-link"><i
                             class="mdi mdi-note-plus"></i><span class="hide-menu"> Historico </span></a></li>
+                            <li class="sidebar-item"><a href="Semanal.php" class="sidebar-link"><i
+                            class="mdi mdi-note-plus"></i><span class="hide-menu"> Semanal </span></a></li>
             </ul>
         </li>
         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Exival.php"
                 aria-expanded="false"><i class="mdi mdi-buffer"></i><span class="hide-menu">Exival</span></a></li>
-        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Credito.php"
+        <li class="sidebar-item"> <a class="sidebar-link waves
+        -effect waves-dark sidebar-link" href="Credito.php"
                 aria-expanded="false"><i class="mdi  mdi-credit-card-multiple"></i><span
                     class="hide-menu">Credito</span></a></li>
         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
