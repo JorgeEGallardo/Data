@@ -52,8 +52,9 @@ if (1 == 2) {
             fputcsv($salida, array("Clave cliente", "Nombre", "Saldo", "Por vencer", "Por vencer 0 a 30", "Por vencer 31 a 60", "Por vencer mas de 60", "Vencido", "Vencido de 0 a 30", "Vencido de 31 a 60", "Vencido mas de 60", "Estatus", "Zona", "Forma de pago", "Tipo", "Vendedor", "Limite de credito"));
 
 
-            $fecha_ini = date('2000-01-01');
-            $fecha_fin = date("Y-m-d");
+                                //Fecha parametro
+                                $fecha_ini = $_POST['finicial'] ;
+                                $fecha_fin = $_POST['ffinal'] ;
             $tot = 0;
             $tot30 = 0;
             $tot60 = 0;

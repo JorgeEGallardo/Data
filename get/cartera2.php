@@ -63,9 +63,14 @@ if (1 == 2) {
                             </thead>
                             <tbody>
                                 <?php
-
+                                /*
+                                Fecha al dia
                                 $fecha_ini = date('2000-01-01');
                                 $fecha_fin = date("Y-m-d");
+                                */
+                                //Fecha parametro
+                                $fecha_ini = $_POST['finicial'] ;
+                                $fecha_fin = $_POST['ffinal'] ;
                                 $tot = 0;
                                 $tot30 = 0;
                                 $tot60 = 0;

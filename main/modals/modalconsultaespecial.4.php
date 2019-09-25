@@ -78,7 +78,19 @@
     </div>
     
     <input type="hidden" name="bases[]" value="3">
-    
+     <div class="input-group">
+                        <input class="form-control mydatepicker" type="date" name="finicial"
+                            placeholder="Fecha inicial">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input class="form-control mydatepicker" type="date" name="ffinal" placeholder="Fecha final">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
     </div>
       <div class="modal-footer">
       <button type="button" onClick="consulta('cartera2', 'formbase4');" class="btn btn-success" data-dismiss="modal">Vista previa</button><br>
