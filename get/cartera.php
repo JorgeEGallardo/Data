@@ -49,7 +49,7 @@ for ($i = 0; $i < count($bases); $i++) {
 
         //Fecha parametro
         for ($l = 0; $l < 4; $l++) {
-            $month = date("m");
+            $month = 7;
             $month -=$l;
             $month = "0".$month;
             $fecha_fin = date("Y")."-".$month.date("-t"); 
@@ -118,17 +118,11 @@ for ($i = 0; $i < count($bases); $i++) {
                             } else if ($RowVencimiento->ESTATUS == "V") {
                                 $ESTATUS = "Suspendido";
                             }
-                            array_push($arrayLines, array($RowVencimiento->CLAVE_CLIENTE, $RowVencimiento->NOMBRE,  $RowVencimiento->SALDO_CXC, $RowVencimiento->SALDO_X_VENCER, $RowVencimiento->SALDO_X_VENCER_PER1, $RowVencimiento->SALDO_X_VENCER_PER2, $RowVencimiento->SALDO_X_VENCER_PER3, $RowVencimiento->SALDO_VENCIDO, $RowVencimiento->SALDO_VENCIDO_PER1, $RowVencimiento->SALDO_VENCIDO_PER2, $RowVencimiento->SALDO_VENCIDO_PER3, $ESTATUS, "-", $RowVencimiento->NOMBRE_01, "-", "-", $RowVencimiento->LIMITE_CREDITO));
+                            fputcsv($salida, array($RowVencimiento->CLAVE_CLIENTE, $RowVencimiento->NOMBRE,  $RowVencimiento->SALDO_CXC, $RowVencimiento->SALDO_X_VENCER, $RowVencimiento->SALDO_X_VENCER_PER1, $RowVencimiento->SALDO_X_VENCER_PER2, $RowVencimiento->SALDO_X_VENCER_PER3, $RowVencimiento->SALDO_VENCIDO, $RowVencimiento->SALDO_VENCIDO_PER1, $RowVencimiento->SALDO_VENCIDO_PER2, $RowVencimiento->SALDO_VENCIDO_PER3, $ESTATUS, "-",$RowVencimiento->NOMBRE_01,"-","-", $RowVencimiento->LIMITE_CREDITO));
                         }
                     }
                 }
             }
         }
-        $output = array();
-        foreach ($arrayLines as $Line) {
-            array_push($output,"Clave cliente", "Nombre", "Saldo", "Por vencer", "Por vencer 0 a 30", "Por vencer 31 a 60", "Por vencer mas de 60", "Vencido", "Vencido de 0 a 30", "Vencido de 31 a 60", "Vencido mas de 60", "Estatus", "Zona", "Forma de pago", "Tipo", "Vendedor", "Limite de credito");
-        }
-                  fputcsv($salida,$output);
-        
     }
 }
