@@ -1,5 +1,4 @@
-<div class="modal fade" id="Consulta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="Consulta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form  action="get/cartera.php" method="POST" id="formbase" >
+                <form action="get/cartera.php" method="POST" id="formbase">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputState">Estatus</label>
@@ -35,13 +34,13 @@
                             <select id="inputState" name="zona" class="form-control">
                                 <option selected value="">Todas</option>
                                 <?php include('config/servicio2.php');
-    $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[0]."",$usuariodini, $basedecode);
-    $OptionQuery = "SELECT DISTINCT ZONA_CLIENTE_ID, NOMBRE FROM ZONAS_CLIENTES;";
-    $Zonas =ibase_query($conn, $OptionQuery);
-    while ($RowZonas = ibase_fetch_object($Zonas)) {
-      echo "<option value=$RowZonas->ZONA_CLIENTE_ID>$RowZonas->NOMBRE</option>";
-    }
-    ?>
+                                $conn = ibase_connect($servicedini . ":" . $rutadini . $empresadini[0] . "", $usuariodini, $basedecode);
+                                $OptionQuery = "SELECT DISTINCT ZONA_CLIENTE_ID, NOMBRE FROM ZONAS_CLIENTES;";
+                                $Zonas = ibase_query($conn, $OptionQuery);
+                                while ($RowZonas = ibase_fetch_object($Zonas)) {
+                                    echo "<option value=$RowZonas->ZONA_CLIENTE_ID>$RowZonas->NOMBRE</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="form-group col-md-4">
@@ -69,38 +68,28 @@
                             <select id="inputState" name="vend" class="form-control">
                                 <option selected value="">Todos</option>
                                 <?php
-    $OptionQuery = "SELECT DISTINCT VENDEDOR_ID, NOMBRE FROM VENDEDORES;";
-    $Zonas =ibase_query($conn, $OptionQuery);
-    while ($RowZonas = ibase_fetch_object($Zonas)) {
-      echo "<option value=$RowZonas->VENDEDOR_ID>$RowZonas->NOMBRE</option>";
-    }
-    ?>
+                                $OptionQuery = "SELECT DISTINCT VENDEDOR_ID, NOMBRE FROM VENDEDORES;";
+                                $Zonas = ibase_query($conn, $OptionQuery);
+                                while ($RowZonas = ibase_fetch_object($Zonas)) {
+                                    echo "<option value=$RowZonas->VENDEDOR_ID>$RowZonas->NOMBRE</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <input type="hidden" name="bases[]" value="0">
-           <div class="input-group">
-                        <input class="form-control mydatepicker" type="date" name="finicial"
-                            placeholder="Fecha inicial">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        <div class="input-group">
+                            <label for="inputState">Análisis meses anteriores</label>
+                            <input class="form-control " type= "text" name="num" placeholder="0" min="0" max="6">
                         </div>
                     </div>
-                    <div class="input-group">
-                        <input class="form-control mydatepicker" type="date" name="ffinal" placeholder="Fecha final">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" onClick="consulta('cartera2', 'formbase');" class="btn btn-success"
-                    data-dismiss="modal">Vista previa</button><br>
-                    <button class="btn btn-success">Descargar</button><br>
+                    <div class="modal-footer">
+                        <button type="button" onClick="consulta('cartera2', 'formbase');" class="btn btn-success" data-dismiss="modal">Vista previa</button><br>
+                        <button class="btn btn-success">Descargar</button><br>
 
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 </div>
-  </div>

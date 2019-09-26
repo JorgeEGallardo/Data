@@ -1,5 +1,11 @@
 <?php
-
+$num = $_POST["num"];
+if ($num >6)
+$num=6;
+else if ($num>0 && $num < 6)
+$num = $num;
+else
+$num = 0; 
 if (1 == 2) {
     echo "Error1";
     exit;
@@ -53,15 +59,17 @@ if (1 == 2) {
             $arrayLines = array();
             $headerLines = array();
             $monthLines= array();
-            for ($j = 0; $j < 4; $j++) {
+            for ($j = 0; $j <= $num; $j++) {
 
                 $lines = array();
                 array_push($headerLines, "Clave cliente", "Nombre", "Saldo", "Por vencer", "Por vencer 0 a 30", "Por vencer 31 a 60", "Por vencer mas de 60", "Vencido", "Vencido de 0 a 30", "Vencido de 31 a 60", "Vencido mas de 60", "Estatus", "Zona", "Forma de pago", "Tipo", "Vendedor", "Limite de credito", " ");
-                $month = date("m");
-                $month -= $j;
+                $month = date("m", strtotime('-'.($j+1).' months'));
+                $month -= 0; 
                 $fecha_fin = date('Y-m-d', strtotime('-'.$j.' months'));
                 $fecha_fin = date('Y-m-t',  strtotime($fecha_fin));
-                $fecha_ini = date('Y-m-01',  strtotime($fecha_fin));
+                
+               // $fecha_ini = date('Y-m-01',  strtotime($fecha_fin));
+               $fecha_ini = date('2000-01-01');
                 array_push($monthLines," "," "," "," "," "," "," "," ",$months[$month]," "," "," "," "," "," "," "," ");
                 $tot = 0;
                 $tot30 = 0;
