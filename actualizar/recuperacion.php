@@ -1,6 +1,5 @@
-<?PHP
+<?php 
 $y = date("Y");
-$y = 2019;
 $Fechain = "$y-01-01";
 $FechaFin = date("Y-m-d");
 include('../config/servicio.php');
@@ -20,6 +19,4 @@ $TotalRec = $RowCobros->TOTAL;
 $conn2=ibase_connect($servicedini.":".$rutadini."DASHBOARD.FDB",$usuariodini, $basedecode);	
 $Query = "INSERT INTO RECUPERACION (VALOR, BD) VALUES ($TotalRec,'$empresadini[$i]');";  
 $CXC= ibase_query($conn2, $Query);
-
-
 }
