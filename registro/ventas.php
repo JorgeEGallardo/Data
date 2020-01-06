@@ -1,6 +1,5 @@
 <?PHP
-$name = "Ventas" . date("Ymd hhmmss") . ".txt";
-$myfile = fopen($name, "w");
+
 for ($y = 2016; $y < 2019; $y++) {
     $Fechain = "$y-01-01";
     $FechaFin = "$y-12-31";
@@ -10,8 +9,7 @@ for ($y = 2016; $y < 2019; $y++) {
 
         //--------VENTAS-------//
         $conn = ibase_connect($servicedini . ":" . $rutadini . $empresadini[$i], $usuariodini, $basedecode);
-        $txt = "Ventas\n";
-        fwrite($myfile, $txt);
+       
         $cont = 0;
         $QuerySelectClientes = "SELECT A.CLIENTE_ID FROM ORSP_LISTA_CLIENTES('N') A 
 WHERE A.ESTATUS <> 'B';";

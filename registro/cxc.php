@@ -1,6 +1,4 @@
 <?PHP
-$name = "CxC" . date("Ymd hhmmss") . ".txt";
-$myfile = fopen($name, "w");
 
 for ($y = 2016; $y < 2019; $y++) {
     $Fechain = "$y-01-01";

@@ -1,9 +1,10 @@
 <?PHP
 $y = date("y");
-$Fechain = "20$y-01-01";
-$FechaFin = "20".date("y-m-d");
+$Fechain = "2019-01-01";
+$FechaFin = "2019-02-28";
 include('../config/servicio.php');
-for ($i=0; $i < count($empresadini) ; $i++) { 
+for ($i=0; $i < 1; $i++) { 
+    
     //--------------------------------//
 //-----------Facturas-------------//
 $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[$i],$usuariodini, $basedecode);	
@@ -36,17 +37,17 @@ while ($RowCobros = ibase_fetch_object($Cobros)) {
                 }else{
                     $IMPORTE =0;
                 }
-                if ($RowDoctoCC->CONCEPTO_CC_ID == 14){
-                   $TotalRec+=$Total;
-                }
+                
+                   $TotalRec+=$IMPORTE;
+                
             }
         }
     
     }
 }
 
-$conn2=ibase_connect($servicedini.":".$rutadini."DASHBOARD.FDB",$usuariodini, $basedecode);	
-$Query = "INSERT INTO RECUPERACION (VALOR, BD) VALUES ($TotalRec,'$empresadini[$i]');";  
-$CXC= ibase_query($conn2, $Query);
-
+//$conn2=ibase_connect($servicedini.":".$rutadini."DASHBOARD.FDB",$usuariodini, $basedecode);	
+//$Query = "INSERT INTO RECUPERACION (VALOR, BD) VALUES ($TotalRec,'$empresadini[$i]');";  
+//$CXC= ibase_query($conn2, $Query);
+print $TotalRec;
 }
