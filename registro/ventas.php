@@ -1,6 +1,6 @@
 <?PHP
 
-for ($y = 2016; $y <= 2019; $y++) {
+for ($y = 2019; $y <= 2019; $y++) {
     $Fechain = "$y-01-01";
     $FechaFin = "$y-12-31";
     include('../config/servicio.php');
@@ -29,10 +29,9 @@ $Cobros = ibase_query($conn, $QueryCobro);
 while ($RowCobros = ibase_fetch_object($Cobros)) {
  $TotalRec = $RowCobros->SUM;
      }
+     $TotalRec+=0;
         $conn = ibase_connect($servicedini . ":" . $rutadini . "REGISTRO.FDB", $usuariodini, $basedecode);
-        $QueryVentas = "INSERT INTO VENTAS (VALOR, BD, FECHA) VALUES ($cont,'$empresadini[$i]', '$FechaFin');";
+        $QueryVentas = "INSERT INTO VENTAS (VALOR, BD, FECHA) VALUES ($TotalRec,'$empresadini[$i]', '$FechaFin');";
         $Ventas = ibase_query($conn, $QueryVentas);
-        print("ventas : " . $cont);
-        //-----------------------//
     }
 }

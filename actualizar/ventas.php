@@ -10,7 +10,7 @@ for ($i=0; $i < count($empresadini) ; $i++) {
 //-----------Facturas-------------//
 $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[$i],$usuariodini, $basedecode);	
  
-$QueryCobro = "SELECT SUM(SUMCC) FROM (
+$QueryCobro = "SELECT coalesce(SUM(SUMCC), 0) FROM (
 SELECT TIPO_DOCTO, SUM(TIPO_CAMBIO*IMPORTE_NETO) AS SUMCC
           FROM DOCTOS_PV
           WHERE ESTATUS <> 'C'
@@ -22,19 +22,17 @@ SELECT TIPO_DOCTO, SUM(TIPO_CAMBIO*IMPORTE_NETO) AS SUMCC
           FROM DOCTOS_VE
           WHERE ESTATUS <> 'C'
                 AND ((TIPO_DOCTO = 'F')
-                    AND (FECHA BETWEEN '$Fechain' AND '$FechaFin'))
+                    AND (FECHA BETWEEN '2020-01-01' AND '2020-01-31'))
           GROUP BY TIPO_DOCTO
           
           )";
 $Cobros = ibase_query($conn, $QueryCobro);
 while ($RowCobros = ibase_fetch_object($Cobros)) {
- $TotalRec = $RowCobros->SUM;
+$TotalRec = $RowCobros->COALESCE;
      }
-
-
 $conn2=ibase_connect($servicedini.":".$rutadini."DASHBOARD.FDB",$usuariodini, $basedecode);	
 $QueryVentas = "INSERT INTO VENTAS (VALOR, BD) VALUES ($TotalRec,'$empresadini[$i]');";  
 $Ventas= ibase_query($conn2, $QueryVentas);
         
 
-}
+} echo "<script>window.close();</script>";
