@@ -185,14 +185,7 @@ $Rec2 = $Rec / 2;
                 echo '</tr>';
             } ?>
 
-                <tr>
-                    <td>
-                        <?PHP echo "Actual"; ?>
-                    </td>
-                    <td id="m4"><?php echo number_format($Rec - $cont, 2); ?></td>
-                    <td><?php echo
-                            date("d-m-Y"); ?></td>
-                </tr>
+              
             </tbody>
         </table>
     </div>

@@ -44,4 +44,4 @@ for ($y = 16; $y < 20; $y++) {
     $execution_time = ($time_end - $time_start);
     
     //execution time of the script
-    echo '<b>Actualización de recuperacion por meses terminada:</b> '.$execution_time.' Segundos';
+    echo '<b>Actualización de recuperacion por meses terminada:</b> '.(floor($execution_time*100)/100).' Segundos';

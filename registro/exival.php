@@ -1,6 +1,5 @@
 <?PHP
-$name = "Exival".date("Ymd hhmmss").".txt"; 
-$myfile = fopen($name , "w");
+$time_start = microtime(true); 
 for ($y = 2019; $y<=2019;$y++){
     $Fechain = "$y-01-01";
     $FechaFin = "$y-12-31";
@@ -28,8 +27,7 @@ for ($y = 2019; $y<=2019;$y++){
             $Porc = 0; 
             while ($RowQCliente = ibase_fetch_object ($QueryClienteF)) 
             { 
-                $Porc++; 
-                $txt = "Exival $Porc \n";
+                
 fwrite($myfile, $txt);
     $QuerySelect= "select * from EXIVAL_ART($RowQCliente->ARTICULO_ID,0 ,'".date("Y-m-d")."','S') ;";
     $Query=ibase_query($conn,$QuerySelect);

@@ -1,5 +1,6 @@
 <?PHP
-
+ 
+ $time_start = microtime(true); 
  
 $y = date("y");
 $Fechain = "20$y-01-01";
@@ -8,7 +9,7 @@ include('../config/servicio.php');
 for ($i=0; $i < count($empresadini) ; $i++) { 
     //-----------------------//
     //EXIVAL
-    $QueryCliente = "SELECT DISTINCT ARTICULO_ID FROM ARTICULOS;";
+    $QueryCliente = "SELECT SUM(A.VALOR_TOTAL) FROM ARTICULOS B LEFT JOIN EXIVAL_ART(B.ARTICULO_ID,0,  '$FechaFin', 'S') A ON (1=1);";
     $tot2=0;
             $conn=ibase_connect($servicedini.":".$rutadini.$empresadini[$i]."",$usuariodini, $basedecode);
             if (!$conn)
@@ -27,34 +28,17 @@ for ($i=0; $i < count($empresadini) ; $i++) {
             $Porc = 0; 
             while ($RowQCliente = ibase_fetch_object ($QueryClienteF)) 
             { 
-                $Porc++; 
-                $txt = "Exival $Porc \n";
-fwrite($myfile, $txt);
-$QuerySelect = "select * from EXIVAL_ART($RowQCliente->ARTICULO_ID,0 ,'$FechaFin','S') ;";
-$Query=ibase_query($conn,$QuerySelect);
-   
-    if (!$Query)
-    {
-    echo "no se puede mostrar datos desde la consulta2: $Query!";
-    exit;
-    }
-    $count =0;
-    $TOT = 0;
-    while ($RowQ = ibase_fetch_object ($Query)) 
-    {
-       
-    $TOT +=  $RowQ->VALOR_TOTAL;
-    
-    }
-    
-    $tot2 += $TOT;
-    $TOT = 0;
+             $tot2 = $RowQCliente->SUM;
             }
     }
-    print("Exival : ".$tot2);
-    
     $conn2=ibase_connect($servicedini.":".$rutadini."DASHBOARD.FDB",$usuariodini, $basedecode);	
     $QueryExival = "INSERT INTO EXIVAL (VALOR, BD) VALUES ($tot2,'$empresadini[$i]');";  
     $Exival = ibase_query($conn2, $QueryExival);
 //-----------------------//
-}
+}$time_end = microtime(true);
+
+//dividing with 60 will give the execution time in minutes otherwise seconds
+$execution_time = ($time_end - $time_start);
+
+//execution time of the script
+echo '<b>Actualización de exival terminada:</b> '.(floor($execution_time*100)/100).' Segundos';
